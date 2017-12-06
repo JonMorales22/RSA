@@ -1,4 +1,6 @@
 
+//this is basically just a placeholder class that holds info
+//figured this was easier to do to make output look cleaner
 public class KeyPair {
 	private int e,d,n;
 	

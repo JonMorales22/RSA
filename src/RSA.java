@@ -3,8 +3,8 @@ import java.util.*;
 public class RSA
 {
 	private char map[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',' ', '.', ',', ';', '?'};
-	public RSA_Key key;
 	
+	//C=(m^e) % n
 	public List<Integer> encrypt(String s, KeyPair keyPair)
 	{
 		int plain[] = mapping(s);
@@ -15,12 +15,11 @@ public class RSA
 			int tempC = pMod(blocks.get(i), keyPair.getE(), keyPair.getN());
 
 			cipher.add(tempC);
-			//System.out.print(cipher);
 		}
-		//System.out.println();
 		return cipher;
 	}
 	
+	//D=(c^e) % n
 	public List<Integer> decrypt(List<Integer> cipher, KeyPair keyPair)
 	{
 		List<Integer> plain = new ArrayList();
@@ -30,9 +29,6 @@ public class RSA
 
 			plain.add(tempC);
 		}
-		//MAP!
-		//int plain[] = mapping(s);
-
 		return plain;
 	}
 	
@@ -48,6 +44,13 @@ public class RSA
 		return temp;
 	}
 	
+	/*	method takes in the in an int array and splits it into blocks as specified by the RSA standard
+	 * 	each block = a[i] and a[i+1] 
+	 *	params
+	 *		int p[] = plain text converted to decimal according to the mapping function
+	 *	returns
+	 *		list<int> 
+	 */
 	private List<Integer> createBlocks(int p[])
 	{
 		List<Integer> temp = new ArrayList();
@@ -57,6 +60,7 @@ public class RSA
 			{
 				String s1 = ""; String s2 = "";
 				
+				//pretty sure this was completely unnecessary, but it made me feel better anyways
 				if(p[i-1]<10)
 					s1 = "0" + Integer.toString(p[i-1]);
 				else
@@ -73,20 +77,24 @@ public class RSA
 		return temp;
 	}
 	
-	//The PowerMod method begins here
-	private int  pMod(int a, int b, int m) {
-	   int  tempo;
-	  if (b ==0 ){
-	   tempo =  1;  //EXIT condition
-	   }//if
-	  else  if (b == 1) tempo = a;
-	        else { int temp = pMod(a,b/2,m);
+	//had to create a PowerMod method because the numbers we were taking powers of were too large for Java to handle
+	private int  pMod(int a, int b, int m)
+	{
+	  int  temp1;
+	  if (b ==0 )
+	  {
+	   temp1 =  1;
+	  }
+	  else  if (b == 1)
+		  temp1 = a;
+	        else 
+	        	{ 
+	        	int temp = pMod(a,b/2,m);
 	            if (b%2 == 0)
-	               tempo = (temp*temp)%m;
+	               temp1 = (temp*temp)%m;
 	            else
-	     		    tempo = ((temp*temp)%m)*a%m;
-			   }
-	    return tempo;
-	 } //POWERMOD method
-
+	     		    temp1 = ((temp*temp)%m)*a%m;
+			}
+	    return temp1;
+	 }
 }

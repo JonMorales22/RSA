@@ -29,14 +29,14 @@ public class main {
 		System.out.print("List of d's: "); printArray(d);
 		System.out.println();
 		
-		System.out.println("Original Plaintext: " + s1);
+		System.out.println("Original Plaintext: " + s2);
 		System.out.println();
 		
 		RSA rsa = new RSA();
 		for(int i=0;i<5;i++)
 		{
 			System.out.println("\tPublic Key: ("+keyPairs[i].getE() + "," + keyPairs[i].getN() +")");
-			List<Integer> cipher = rsa.encrypt(s1, keyPairs[i]);
+			List<Integer> cipher = rsa.encrypt(s2, keyPairs[i]);
 			System.out.print("\tCipher = " + cipher);
 			System.out.println();
 			

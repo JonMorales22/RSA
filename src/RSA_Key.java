@@ -1,4 +1,3 @@
-import java.math.BigInteger;
 public class RSA_Key {
 	private static final int COUNT = 5;
 	
@@ -7,7 +6,6 @@ public class RSA_Key {
 	
 	public void generateKeys(int p, int q)
 	{
-		
 		n = p*q;
 		phi = (p-1)*(q-1);
 		e = find_RP_Val(phi);
@@ -31,6 +29,7 @@ public class RSA_Key {
 		return val;
 	}
 	
+	//Euclid's OG method for finding the GCD, nothing too fancy here
 	private int gcd(int a, int b)
 	{
 		int temp=0;
@@ -54,6 +53,7 @@ public class RSA_Key {
 		return dVal;
 	}
 	
+	//Euclid's new and improved method for finding our "D" values.
 	private int xgcd(int a, int b)
 	{
 		int dividend = a;
@@ -76,6 +76,7 @@ public class RSA_Key {
 			y_1 = y0;
 			y0 = y;
 			
+			//????????????????
 			if(r==0)
 			{
 				if(x_1<0)
