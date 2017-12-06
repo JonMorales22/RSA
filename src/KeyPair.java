@@ -9,6 +9,7 @@ public class KeyPair {
 		this.n=n;
 	}
 	
+	//Getter Methods
 	public int getE()
 	{return e;}
 	public int getD()

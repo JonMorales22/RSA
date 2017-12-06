@@ -2,26 +2,16 @@ import java.math.BigInteger;
 public class RSA_Key {
 	private static final int COUNT = 5;
 	
-	int n,phi,e,d;
+	int n,phi;
+	int e[], d[];
 	
-	
-	
-	public KeyPair[] generateKeys(int p, int q)
+	public void generateKeys(int p, int q)
 	{
-		KeyPair[] keyPairs = new KeyPair[COUNT];
 		
 		n = p*q;
 		phi = (p-1)*(q-1);
-		int rp_Val [] = find_RP_Val(phi);
-		int dVal[] = find_DVal(rp_Val);
-	
-		for(int i=0;i<COUNT;i++)
-		{
-			keyPairs[i] = new KeyPair(rp_Val[i],dVal[i], n);
-			//System.out.println(keyPairs[i]);
-		}
-		
-		return keyPairs;
+		e = find_RP_Val(phi);
+		d= find_DVal(e);
 	}
 	
 	private int[] find_RP_Val(int t)
@@ -98,9 +88,14 @@ public class RSA_Key {
 		return 0;
 	}
 	
+	//Getter methods
 	public int getN()
 		{return n;}
 	public int getPhi()
 		{return phi;}	
+	public int[] getE_Arr()
+		{return e;}	
+	public int[] getD_Arr()
+		{return d;}
 
 }
